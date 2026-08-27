@@ -1,0 +1,2805 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#171022">
+
+<title>Mi Rutina de Gimnasio</title>
+<link rel="icon" type="image/jpeg" href="icon.png.jpg">
+<link rel="apple-touch-icon" href="icon.png.jpg">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GYM">
+<meta name="theme-color" content="#171022">
+<link rel="manifest" href="manifest.json">    
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #171022;
+    color: #f4f0fa;
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+header {
+    background: linear-gradient(135deg, #24163a, #38215a);
+    padding: 28px 18px 24px;
+    text-align: center;
+    border-bottom: 2px solid #6946a0;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+header p {
+    margin: 8px 0 0;
+    color: #c8bdd8;
+    font-size: 15px;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 15px;
+}
+
+/* NAVEGACIÓN */
+
+.nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 0 16px;
+    scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+    display: none;
+}
+
+.nav button {
+    flex-shrink: 0;
+    border: 1px solid #493664;
+    background: #21182d;
+    color: #cfc5dc;
+    padding: 11px 15px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.nav button.active {
+    background: #8d5dcc;
+    color: white;
+    border-color: #a97be0;
+    font-weight: bold;
+}
+
+/* TARJETA DEL DÍA */
+
+.today-card {
+    background: linear-gradient(135deg, #24183a, #2c1c47);
+    border: 1px solid #6946a0;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.today-small {
+    color: #b9a9ca;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.today-title {
+    font-size: 29px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.today-subtitle {
+    color: #c9bdd5;
+    font-size: 14px;
+}
+
+/* PROGRESO */
+
+.progress-card {
+    background: #21182d;
+    border: 1px solid #493664;
+    border-radius: 16px;
+    padding: 17px;
+    margin-bottom: 16px;
+}
+
+.progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.progress-label {
+    color: #c9bdd5;
+    font-size: 14px;
+}
+
+.progress-percent {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #352841;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #7b4bb2, #b179e4);
+    border-radius: 20px;
+    transition: width 0.3s ease;
+}
+
+/* TEMPORIZADOR */
+
+.timer-card {
+    background: linear-gradient(135deg, #21182d, #2c1b40);
+    border: 1px solid #654487;
+    border-radius: 17px;
+    padding: 20px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.timer-title {
+    font-size: 15px;
+    color: #bbaecc;
+    margin-bottom: 5px;
+}
+
+.timer-display {
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 5px 0 13px;
+}
+
+.timer-button {
+    border: none;
+    background: linear-gradient(135deg, #8b59c7, #a875df);
+    color: white;
+    font-weight: bold;
+    padding: 13px 28px;
+    border-radius: 12px;
+    font-size: 15px;
+    min-width: 150px;
+}
+
+.timer-button:active {
+    transform: scale(0.97);
+}
+
+.timer-finished {
+    color: #82df92;
+}
+
+/* RUTINA */
+
+.routine-card {
+    background: #21182d;
+    border: 1px solid #493664;
+    border-radius: 17px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.routine-header {
+    padding: 19px;
+    background: linear-gradient(135deg, #2b1b44, #392352);
+    border-bottom: 1px solid #51366c;
+}
+
+.routine-header h2 {
+    margin: 0;
+    font-size: 23px;
+}
+
+.routine-header p {
+    margin: 7px 0 0;
+    color: #c7bad4;
+    font-size: 14px;
+}
+
+/* EJERCICIOS */
+
+.exercise {
+    padding: 16px;
+    border-bottom: 1px solid #362844;
+    transition: 0.2s;
+}
+
+.exercise:last-child {
+    border-bottom: none;
+}
+
+.exercise.completed {
+    background: rgba(99, 184, 116, 0.09);
+}
+
+.exercise-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.check {
+    width: 29px;
+    height: 29px;
+    flex-shrink: 0;
+    border: 2px solid #67547a;
+    border-radius: 9px;
+    background: #18121f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.exercise.completed .check {
+    background: #62c778;
+    border-color: #62c778;
+    color: #101812;
+}
+
+.exercise-name {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.exercise.completed .exercise-name {
+    color: #8f9b92;
+    text-decoration: line-through;
+}
+
+.exercise-info {
+    margin-left: 42px;
+    margin-top: 5px;
+    color: #aaa0b5;
+    font-size: 14px;
+}
+
+/* PESOS */
+
+.weight-area {
+    margin-left: 42px;
+    margin-top: 12px;
+    padding: 12px;
+    background: #1a1322;
+    border: 1px solid #3d2c4d;
+    border-radius: 12px;
+}
+
+.weight-label {
+    font-size: 13px;
+    color: #a99bb3;
+    margin-bottom: 7px;
+}
+
+.weight-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.weight-input {
+    width: 100px;
+    padding: 10px;
+    border-radius: 9px;
+    border: 1px solid #5b4370;
+    background: #24192e;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+}
+
+.weight-input:focus {
+    border-color: #a875df;
+}
+
+.weight-unit {
+    color: #aaa0b5;
+    font-size: 14px;
+}
+
+.last-weight {
+    margin-top: 7px;
+    color: #91839c;
+    font-size: 12px;
+}
+
+.pr-badge {
+    margin-top: 8px;
+    color: #d2a2ff;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* BOTONES */
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.main-button,
+.secondary-button {
+    flex: 1;
+    padding: 14px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.main-button {
+    border: none;
+    background: linear-gradient(135deg, #8b59c7, #a875df);
+    color: white;
+}
+
+.secondary-button {
+    border: 1px solid #4d3a60;
+    background: #21182d;
+    color: #d5c9df;
+}
+
+/* ESTADÍSTICAS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+    margin-bottom: 16px;
+}
+
+.stat {
+    background: #21182d;
+    border: 1px solid #493664;
+    border-radius: 14px;
+    padding: 15px 6px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.stat-label {
+    color: #93869e;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+/* HISTORIAL */
+
+.history-card,
+.pr-card {
+    background: #21182d;
+    border: 1px solid #493664;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.history-header {
+    padding: 18px;
+    background: #2a1b41;
+}
+
+.history-header h2 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.history-item {
+    padding: 15px;
+    border-top: 1px solid #362844;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-date {
+    font-weight: bold;
+}
+
+.history-routine {
+    color: #9d91a8;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.history-percent {
+    background: #39244e;
+    color: #c79bf0;
+    padding: 7px 10px;
+    border-radius: 9px;
+    font-weight: bold;
+}
+
+.empty {
+    padding: 30px 15px;
+    text-align: center;
+    color: #81758b;
+}
+
+/* PR */
+
+.pr-item {
+    padding: 15px;
+    border-top: 1px solid #362844;
+}
+
+.pr-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.pr-value {
+    color: #d2a2ff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.pr-last {
+    color: #91839c;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* CALENDARIO */
+
+.calendar-card {
+    background: #21182d;
+    border: 1px solid #493664;
+    border-radius: 16px;
+    padding: 17px;
+}
+
+.calendar-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-name {
+    text-align: center;
+    color: #82768c;
+    font-size: 11px;
+    padding-bottom: 5px;
+}
+
+.calendar-day {
+    min-height: 40px;
+    border-radius: 8px;
+    background: #1a1322;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+
+.calendar-day.trained {
+    background: #8b59c7;
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-day.today {
+    border: 2px solid #d2a9f7;
+}
+
+.calendar-day.empty {
+    background: transparent;
+}
+
+/* DESCANSO */
+
+.rest-card {
+    text-align: center;
+    padding: 40px 20px;
+    background: #21182d;
+    border: 1px solid #493664;
+    border-radius: 18px;
+}
+
+.rest-emoji {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.rest-card h2 {
+    margin: 0 0 10px;
+    font-size: 25px;
+}
+
+.rest-card p {
+    color: #a99db3;
+    line-height: 1.5;
+}
+
+/* 100% */
+
+.complete-message {
+    display: none;
+    text-align: center;
+    padding: 17px;
+    margin-bottom: 16px;
+    background: rgba(98, 199, 120, 0.12);
+    border: 1px solid #4f9e60;
+    border-radius: 14px;
+    color: #8be39a;
+    font-weight: bold;
+}
+
+.footer {
+    text-align: center;
+    color: #665b6e;
+    font-size: 12px;
+    margin-top: 30px;
+}
+
+@media (max-width: 420px) {
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .today-title {
+        font-size: 26px;
+    }
+
+    .exercise-name {
+        font-size: 16px;
+    }
+
+    .weight-input {
+        width: 90px;
+    }
+
+    .main-button,
+    .secondary-button {
+        font-size: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>💪 Mi rutina de gimnasio</h1>
+
+    <p id="currentDate"></p>
+
+</header>
+
+<div class="container">
+
+    <div class="nav">
+
+        <button id="btnHoy"
+            class="active"
+            onclick="showSection('today')">
+            🏋️ Hoy
+        </button>
+
+        <button id="btnHistorial"
+            onclick="showSection('history')">
+            📜 Historial
+        </button>
+
+        <button id="btnCalendario"
+            onclick="showSection('calendar')">
+            📅 Calendario
+        </button>
+
+        <button id="btnProgreso"
+            onclick="showSection('stats')">
+            📊 Progreso
+        </button>
+
+    </div>
+
+    <!-- HOY -->
+
+    <div id="todaySection">
+
+        <div class="stats">
+
+            <div class="stat">
+                <div class="stat-number" id="streakNumber">0</div>
+                <div class="stat-label">🔥 Racha</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number" id="workoutNumber">0</div>
+                <div class="stat-label">🏆 Entrenos</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number" id="progressSmall">0%</div>
+                <div class="stat-label">📈 Hoy</div>
+            </div>
+
+        </div>
+
+        <div class="today-card">
+
+            <div class="today-small">
+                HOY
+            </div>
+
+            <div class="today-title" id="todayTitle">
+                🏋️ Cargando...
+            </div>
+
+            <div class="today-subtitle" id="todaySubtitle">
+                Cargando rutina...
+            </div>
+
+        </div>
+
+        <div class="progress-card">
+
+            <div class="progress-top">
+
+                <div class="progress-label">
+                    Progreso de hoy
+                </div>
+
+                <div class="progress-percent"
+                    id="progressPercent">
+                    0%
+                </div>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div class="progress-fill"
+                    id="progressFill">
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- TEMPORIZADOR -->
+
+        <div class="timer-card">
+
+            <div class="timer-title">
+                ⏱️ DESCANSO
+            </div>
+
+            <div class="timer-display"
+                id="timerDisplay">
+                1:30
+            </div>
+
+            <button class="timer-button"
+                id="timerButton"
+                onclick="timerAction()">
+                ▶️ INICIAR
+            </button>
+
+        </div>
+
+        <div id="completeMessage"
+            class="complete-message">
+
+            🎉 ¡Rutina completada al 100%!
+            <br>
+            Excelente trabajo 💪
+
+        </div>
+
+        <div id="routineContainer"></div>
+
+        <div id="buttonsContainer"
+            class="buttons">
+
+            <button class="main-button"
+                onclick="finishWorkout()">
+
+                🏁 Guardar entrenamiento
+
+            </button>
+
+            <button class="secondary-button"
+                onclick="resetToday()">
+
+                🔄 Reiniciar
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- HISTORIAL -->
+
+    <div id="historySection"
+        style="display:none;">
+
+        <div class="history-card">
+
+            <div class="history-header">
+
+                <h2>
+                    📜 Historial de entrenamientos
+                </h2>
+
+            </div>
+
+            <div id="historyList"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CALENDARIO -->
+
+    <div id="calendarSection"
+        style="display:none;">
+
+        <div class="calendar-card">
+
+            <div class="calendar-title"
+                id="calendarTitle">
+            </div>
+
+            <div class="calendar"
+                id="calendar">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROGRESO -->
+
+    <div id="statsSection"
+        style="display:none;">
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-number"
+                    id="statsWorkouts">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    🏆 Entrenamientos
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="stat-number"
+                    id="statsStreak">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    🔥 Racha
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="stat-number"
+                    id="statsAverage">
+                    0%
+                </div>
+
+                <div class="stat-label">
+                    📈 Promedio
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="pr-card">
+
+            <div class="history-header">
+
+                <h2>
+                    🏆 Mis PR
+                </h2>
+
+            </div>
+
+            <div id="prList"></div>
+
+        </div>
+
+        <div class="today-card">
+
+            <div class="today-title">
+                📊 Tu progreso
+            </div>
+
+            <div class="today-subtitle"
+                id="statsText"
+                style="margin-top:10px;">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        💜 Entrená fuerte · mantené la técnica · progresá de a poco
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   RUTINAS
+===================================================== */
+
+const routines = {
+
+    TRACCION: {
+
+        name: "TRACCIÓN",
+        emoji: "💜",
+        days: [1, 4],
+
+        exercises: [
+
+            {
+                id: "dominadas",
+                name: "Dominadas",
+                reps: "4×10/8/6/4 reps",
+                note: "Con banda elástica"
+            },
+
+            {
+                id: "australian",
+                name: "Australian",
+                reps: "3×6 reps"
+            },
+
+            {
+                id: "remo-maquina",
+                name: "Remo en máquina",
+                reps: "3×10 reps"
+            },
+
+            {
+                id: "dorsales-polea",
+                name: "Dorsales polea alta",
+                reps: "4×12 reps"
+            },
+
+            {
+                id: "curl-martillo",
+                name: "Curl martillo con mancuernas",
+                reps: "3×10 reps"
+            },
+
+            {
+                id: "curl-predicador",
+                name: "Curl predicador de bíceps barra W",
+                reps: "4×10 reps"
+            },
+
+            {
+                id: "curl-inverso",
+                name: "Curl inverso",
+                reps: "3×8/10 reps"
+            }
+
+        ]
+
+    },
+
+    PIERNAS: {
+
+        name: "PIERNAS",
+        emoji: "🦵",
+        days: [2, 5],
+
+        exercises: [
+
+            {
+                id: "sentadillas",
+                name: "Sentadillas",
+                reps: "4×10 reps"
+            },
+
+            {
+                id: "prensa",
+                name: "Prensa",
+                reps: "4×12 reps"
+            },
+
+            {
+                id: "extension-cuadriceps",
+                name: "Extensión de cuádriceps",
+                reps: "3×10 reps"
+            },
+
+            {
+                id: "buenos-dias",
+                name: "Buenos días",
+                reps: "3×12/15 reps"
+            },
+
+            {
+                id: "peso-muerto-mancuerna",
+                name: "Peso muerto con mancuerna",
+                reps: "3×10 reps"
+            },
+
+            {
+                id: "hip-thrust",
+                name: "Hip Thrust",
+                reps: "4×12 reps"
+            },
+
+            {
+                id: "estocadas",
+                name: "Estocadas con mancuerna",
+                reps: "3×10 reps"
+            },
+
+            {
+                id: "gemelos",
+                name: "Elevaciones de gemelos",
+                reps: "4×12 reps"
+            }
+
+        ]
+
+    },
+
+    EMPUJE: {
+
+        name: "EMPUJE",
+        emoji: "🔥",
+        days: [3, 6],
+
+        exercises: [
+
+            {
+                id: "fondos",
+                name: "Fondos",
+                reps: "3×10/8/6 reps"
+            },
+
+            {
+                id: "press-plano",
+                name: "Press plano",
+                reps: "4×10 reps"
+            },
+
+            {
+                id: "press-inclinado",
+                name: "Press inclinado",
+                reps: "4×12 reps"
+            },
+
+            {
+                id: "press-militar",
+                name: "Press militar sentado",
+                reps: "3×6/8 reps"
+            },
+
+            {
+                id: "press-frances",
+                name: "Press francés",
+                reps: "3×10/12 reps"
+            },
+
+            {
+                id: "extension-triceps",
+                name: "Extensión de tríceps polea alta",
+                reps: "3×8/10 reps"
+            },
+
+            {
+                id: "vuelos-laterales",
+                name: "Vuelos laterales",
+                reps: "3×10 reps"
+            }
+
+        ]
+
+    }
+
+};
+
+
+/* =====================================================
+   DATOS
+===================================================== */
+
+const STORAGE_KEY =
+    "rutinaGymCompleta_v3";
+
+let appData = {
+    sessions: {},
+    history: [],
+    weights: {},
+    prs: {}
+};
+
+
+/* =====================================================
+   TEMPORIZADOR
+===================================================== */
+
+const REST_SECONDS = 90;
+
+let timerSeconds = REST_SECONDS;
+let timerInterval = null;
+let timerRunning = false;
+let timerEndTime = null;
+
+const TIMER_STORAGE_KEY = "gymTimerState";
+
+
+/* =====================================================
+   MOSTRAR TIEMPO
+===================================================== */
+
+function updateTimerDisplay() {
+
+    const minutes =
+        Math.floor(timerSeconds / 60);
+
+    const seconds =
+        timerSeconds % 60;
+
+    document.getElementById(
+        "timerDisplay"
+    ).textContent =
+        minutes +
+        ":" +
+        String(seconds).padStart(2, "0");
+
+}
+
+
+/* =====================================================
+   BOTÓN
+===================================================== */
+
+function updateTimerButton() {
+
+    const button =
+        document.getElementById("timerButton");
+
+    if (timerRunning) {
+
+        button.textContent = "⏸️ PAUSAR";
+
+    } else {
+
+        button.textContent = "▶️ INICIAR";
+
+    }
+
+}
+
+
+/* =====================================================
+   GUARDAR ESTADO DEL TEMPORIZADOR
+===================================================== */
+
+function saveTimerState() {
+
+    localStorage.setItem(
+        TIMER_STORAGE_KEY,
+        JSON.stringify({
+            timerSeconds: timerSeconds,
+            timerRunning: timerRunning,
+            timerEndTime: timerEndTime
+        })
+    );
+
+}
+
+
+/* =====================================================
+   CARGAR ESTADO DEL TEMPORIZADOR
+===================================================== */
+
+function loadTimerState() {
+
+    const saved =
+        localStorage.getItem(
+            TIMER_STORAGE_KEY
+        );
+
+    if (!saved) {
+
+        updateTimerDisplay();
+        updateTimerButton();
+
+        return;
+
+    }
+
+    try {
+
+        const state =
+            JSON.parse(saved);
+
+        timerSeconds =
+            Number(state.timerSeconds) || REST_SECONDS;
+
+        timerRunning =
+            state.timerRunning === true;
+
+        timerEndTime =
+            state.timerEndTime || null;
+
+        /*
+         Si estaba corriendo cuando se cerró,
+         calculamos cuánto tiempo queda realmente.
+        */
+
+        if (
+            timerRunning &&
+            timerEndTime
+        ) {
+
+            const remaining =
+                Math.max(
+                    0,
+                    Math.ceil(
+                        (timerEndTime - Date.now()) / 1000
+                    )
+                );
+
+            timerSeconds =
+                remaining;
+
+            if (remaining <= 0) {
+
+                finishTimer();
+
+                return;
+
+            }
+
+            clearInterval(timerInterval);
+
+            timerInterval =
+                setInterval(
+                    updateTimer,
+                    250
+                );
+
+        }
+
+    } catch (error) {
+
+        timerSeconds = REST_SECONDS;
+        timerRunning = false;
+        timerEndTime = null;
+
+    }
+
+    updateTimerDisplay();
+    updateTimerButton();
+
+}
+
+
+/* =====================================================
+   ACCIÓN
+===================================================== */
+
+function timerAction() {
+
+    if (timerRunning) {
+
+        pauseTimer();
+
+    } else {
+
+        startTimer();
+
+    }
+
+}
+
+
+/* =====================================================
+   ACTUALIZAR TIEMPO REAL
+===================================================== */
+
+function updateTimer() {
+
+    if (
+        !timerRunning ||
+        !timerEndTime
+    ) {
+
+        return;
+
+    }
+
+    const remaining =
+        Math.max(
+            0,
+            Math.ceil(
+                (timerEndTime - Date.now()) / 1000
+            )
+        );
+
+    timerSeconds =
+        remaining;
+
+    updateTimerDisplay();
+
+    if (remaining <= 0) {
+
+        finishTimer();
+
+    }
+
+}
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+function startTimer() {
+
+    if (timerSeconds <= 0) {
+
+        timerSeconds =
+            REST_SECONDS;
+
+    }
+
+    timerRunning = true;
+
+    timerEndTime =
+        Date.now() +
+        (timerSeconds * 1000);
+
+    document
+        .getElementById("timerDisplay")
+        .classList.remove("timer-finished");
+
+    updateTimerButton();
+
+    updateTimer();
+
+    saveTimerState();
+
+    clearInterval(timerInterval);
+
+    timerInterval =
+        setInterval(
+            updateTimer,
+            250
+        );
+
+}
+
+
+/* =====================================================
+   PAUSAR
+===================================================== */
+
+function pauseTimer() {
+
+    updateTimer();
+
+    clearInterval(
+        timerInterval
+    );
+
+    timerInterval = null;
+
+    timerRunning = false;
+
+    timerEndTime = null;
+
+    saveTimerState();
+
+    updateTimerButton();
+
+}
+
+
+/* =====================================================
+   FINALIZAR
+===================================================== */
+
+function finishTimer() {
+
+    clearInterval(
+        timerInterval
+    );
+
+    timerInterval = null;
+
+    timerRunning = false;
+
+    timerEndTime = null;
+
+    timerSeconds = 0;
+
+    updateTimerDisplay();
+
+    document
+        .getElementById("timerDisplay")
+        .classList.add("timer-finished");
+
+    /*
+       Vibración si el navegador la permite.
+    */
+
+    if ("vibrate" in navigator) {
+
+        navigator.vibrate(250);
+
+    }
+
+    saveTimerState();
+
+    updateTimerButton();
+
+}
+
+
+/* =====================================================
+   VOLVER A LA APP
+===================================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if (
+            document.visibilityState === "visible"
+        ) {
+
+            if (timerRunning) {
+
+                updateTimer();
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CUANDO VUELVE LA PÁGINA
+===================================================== */
+
+window.addEventListener(
+    "pageshow",
+    () => {
+
+        if (timerRunning) {
+
+            updateTimer();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   GUARDAR ANTES DE SALIR
+===================================================== */
+
+window.addEventListener(
+    "pagehide",
+    () => {
+
+        if (timerRunning) {
+
+            saveTimerState();
+
+        }
+
+    }
+);
+/* =====================================================
+   DATOS
+===================================================== */
+function loadData() {
+
+    const saved =
+        localStorage.getItem(STORAGE_KEY);
+
+    if (!saved) return;
+
+    try {
+
+        const parsed = JSON.parse(saved);
+
+        appData.sessions =
+            parsed.sessions || {};
+
+        appData.history =
+            Array.isArray(parsed.history)
+            ? parsed.history
+            : [];
+
+        appData.weights =
+            parsed.weights || {};
+
+        appData.prs =
+            parsed.prs || {};
+
+    } catch (error) {
+
+        console.log(
+            "No se pudieron cargar los datos."
+        );
+
+    }
+
+}
+
+
+function saveData() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(appData)
+    );
+
+}
+
+
+/* =====================================================
+   FECHAS
+===================================================== */
+
+function getTodayKey() {
+
+    const now = new Date();
+
+    return (
+        now.getFullYear() +
+        "-" +
+        String(now.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(now.getDate()).padStart(2, "0")
+    );
+
+}
+
+
+function getDayNumber() {
+
+    return new Date().getDay();
+
+}
+
+
+function formatDate(dateKey) {
+
+    const parts = dateKey.split("-");
+
+    const date = new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
+    );
+
+    return date.toLocaleDateString(
+        "es-AR",
+        {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+function updateDate() {
+
+    const text =
+        new Date().toLocaleDateString(
+            "es-AR",
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    document.getElementById(
+        "currentDate"
+    ).textContent =
+        text.charAt(0).toUpperCase() +
+        text.slice(1);
+
+}
+
+
+/* =====================================================
+   RUTINA DEL DÍA
+===================================================== */
+
+function getTodayRoutine() {
+
+    const day = getDayNumber();
+
+    for (const key in routines) {
+
+        if (
+            routines[key].days.includes(day)
+        ) {
+
+            return routines[key];
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+/* =====================================================
+   ESTADO DEL DÍA
+===================================================== */
+
+function getTodayState() {
+
+    const key = getTodayKey();
+
+    if (!appData.sessions[key]) {
+
+        appData.sessions[key] = {};
+
+    }
+
+    return appData.sessions[key];
+
+}
+
+
+/* =====================================================
+   RENDERIZAR RUTINA
+===================================================== */
+
+function renderTodayRoutine() {
+
+    const routine = getTodayRoutine();
+
+    const container =
+        document.getElementById(
+            "routineContainer"
+        );
+
+    const buttons =
+        document.getElementById(
+            "buttonsContainer"
+        );
+
+    if (!routine) {
+
+        document.getElementById(
+            "todayTitle"
+        ).textContent =
+            "😴 DESCANSO";
+
+        document.getElementById(
+            "todaySubtitle"
+        ).textContent =
+            "Hoy no hay entrenamiento programado.";
+
+        container.innerHTML = `
+
+            <div class="rest-card">
+
+                <div class="rest-emoji">
+                    😴
+                </div>
+
+                <h2>
+                    Día de descanso
+                </h2>
+
+                <p>
+                    Hoy no tenés una rutina programada.
+                    Aprovechá para descansar y recuperarte.
+                </p>
+
+            </div>
+
+        `;
+
+        buttons.style.display = "none";
+
+        document.getElementById(
+            "progressPercent"
+        ).textContent = "—";
+
+        document.getElementById(
+            "progressFill"
+        ).style.width = "0%";
+
+        document.getElementById(
+            "progressSmall"
+        ).textContent = "—";
+
+        return;
+
+    }
+
+    buttons.style.display = "flex";
+
+    document.getElementById(
+        "todayTitle"
+    ).textContent =
+        routine.emoji +
+        " " +
+        routine.name;
+
+    document.getElementById(
+        "todaySubtitle"
+    ).textContent =
+        routine.exercises.length +
+        " ejercicios programados para hoy";
+
+    let html = `
+
+        <div class="routine-card">
+
+            <div class="routine-header">
+
+                <h2>
+                    ${routine.emoji}
+                    ${routine.name}
+                </h2>
+
+                <p>
+                    Marcá cada ejercicio al terminarlo.
+                </p>
+
+            </div>
+
+    `;
+
+    routine.exercises.forEach(
+        (exercise, index) => {
+
+            const last =
+                getLastWeight(exercise.id);
+
+            const pr =
+                appData.prs[exercise.id] || 0;
+
+            const current =
+                getTodayState()[exercise.id];
+
+            html += `
+
+                <div
+                    class="exercise ${current ? "completed" : ""}"
+                    data-id="${exercise.id}">
+
+                    <div
+                        class="exercise-row"
+                        onclick="toggleExercise('${exercise.id}')">
+
+                        <div class="check">
+                            ${current ? "✓" : ""}
+                        </div>
+
+                        <div class="exercise-name">
+
+                            ${index + 1}.
+                            ${exercise.name}
+
+                        </div>
+
+                    </div>
+
+                    <div class="exercise-info">
+
+                        ${exercise.reps}
+
+                    </div>
+
+                    ${
+                        exercise.note
+                        ?
+                        `
+                        <div
+                            class="exercise-info"
+                            style="color:#8e7da0;">
+
+                            💡 ${exercise.note}
+
+                        </div>
+                        `
+                        :
+                        ""
+                    }
+
+                    <div class="weight-area">
+
+                        <div class="weight-label">
+                            🏋️ Peso utilizado hoy
+                        </div>
+
+                        <div class="weight-row">
+
+                            <input
+                                class="weight-input"
+                                type="number"
+                                inputmode="decimal"
+                                step="0.5"
+                                min="0"
+                                value="${
+                                    getTodayWeight(
+                                        exercise.id
+                                    )
+                                }"
+                                placeholder="${
+                                    last
+                                    ? last
+                                    : "Peso"
+                                }"
+                                onclick="event.stopPropagation()"
+                                onchange="saveWeight(
+                                    '${exercise.id}',
+                                    this.value
+                                )">
+
+                            <span class="weight-unit">
+                                kg
+                            </span>
+
+                        </div>
+
+                        ${
+                            last
+                            ?
+                            `
+                            <div class="last-weight">
+                                🔄 Último peso:
+                                <strong>${last} kg</strong>
+                            </div>
+                            `
+                            :
+                            `
+                            <div class="last-weight">
+                                🔄 Todavía no hay un peso registrado
+                            </div>
+                            `
+                        }
+
+                        ${
+                            pr > 0
+                            ?
+                            `
+                            <div class="pr-badge">
+                                🏆 PR:
+                                ${pr} kg
+                            </div>
+                            `
+                            :
+                            ""
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+    html += `</div>`;
+
+    container.innerHTML = html;
+
+    updateProgress();
+
+}
+
+
+/* =====================================================
+   PESOS
+===================================================== */
+
+function getTodayWeight(id) {
+
+    const date =
+        getTodayKey();
+
+    if (
+        appData.weights[date] &&
+        appData.weights[date][id] !== undefined
+    ) {
+
+        return appData.weights[date][id];
+
+    }
+
+    return "";
+
+}
+
+
+function getLastWeight(id) {
+
+    const dates =
+        Object.keys(appData.weights)
+        .sort()
+        .reverse();
+
+    for (const date of dates) {
+
+        if (
+            appData.weights[date] &&
+            appData.weights[date][id] !== undefined
+        ) {
+
+            return appData.weights[date][id];
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+function saveWeight(id, value) {
+
+    const weight =
+        Number(value);
+
+    const date =
+        getTodayKey();
+
+    if (!appData.weights[date]) {
+
+        appData.weights[date] = {};
+
+    }
+
+    if (
+        value === "" ||
+        isNaN(weight) ||
+        weight < 0
+    ) {
+
+        delete appData.weights[date][id];
+
+        saveData();
+
+        renderTodayRoutine();
+
+        return;
+
+    }
+
+    appData.weights[date][id] =
+        weight;
+
+    if (
+        !appData.prs[id] ||
+        weight > Number(appData.prs[id])
+    ) {
+
+        appData.prs[id] =
+            weight;
+
+        alert(
+            "🏆 ¡NUEVO PR!\n\n" +
+            weight +
+            " kg"
+        );
+
+    }
+
+    saveData();
+
+    renderTodayRoutine();
+
+}
+
+
+/* =====================================================
+   EJERCICIOS
+===================================================== */
+
+function toggleExercise(id) {
+
+    const routine =
+        getTodayRoutine();
+
+    if (!routine) return;
+
+    const state =
+        getTodayState();
+
+    state[id] =
+        !state[id];
+
+    saveData();
+
+    renderTodayRoutine();
+
+}
+
+
+/* =====================================================
+   PROGRESO
+===================================================== */
+
+function getProgress() {
+
+    const routine =
+        getTodayRoutine();
+
+    if (!routine) return 0;
+
+    const state =
+        getTodayState();
+
+    let completed = 0;
+
+    routine.exercises.forEach(
+        exercise => {
+
+            if (
+                state[exercise.id]
+            ) {
+
+                completed++;
+
+            }
+
+        }
+    );
+
+    return Math.round(
+        completed /
+        routine.exercises.length *
+        100
+    );
+
+}
+
+
+function updateProgress() {
+
+    const progress =
+        getProgress();
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        progress + "%";
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        progress + "%";
+
+    document.getElementById(
+        "progressSmall"
+    ).textContent =
+        progress + "%";
+
+    const message =
+        document.getElementById(
+            "completeMessage"
+        );
+
+    if (
+        progress === 100
+    ) {
+
+        message.style.display =
+            "block";
+
+    } else {
+
+        message.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   GUARDAR ENTRENAMIENTO
+===================================================== */
+
+function finishWorkout() {
+
+    const routine =
+        getTodayRoutine();
+
+    if (!routine) return;
+
+    const progress =
+        getProgress();
+
+    if (progress < 100) {
+
+        alert(
+            "💪 Todavía no terminaste la rutina.\n\n" +
+            "Completá todos los ejercicios para llegar al 100%."
+        );
+
+        return;
+
+    }
+
+    const date =
+        getTodayKey();
+
+    const existing =
+        appData.history.find(
+            item =>
+                item.date === date
+        );
+
+    if (existing) {
+
+        alert(
+            "📜 El entrenamiento de hoy ya está guardado."
+        );
+
+        return;
+
+    }
+
+    appData.history.unshift({
+
+        date: date,
+        routine: routine.name,
+        progress: 100
+
+    });
+
+    saveData();
+
+    updateStats();
+
+    alert(
+        "🔥 ¡Entrenamiento guardado!\n\n" +
+        routine.name +
+        " — 100%"
+    );
+
+}
+
+
+/* =====================================================
+   REINICIAR
+===================================================== */
+
+function resetToday() {
+
+    const routine =
+        getTodayRoutine();
+
+    if (!routine) return;
+
+    const confirmation =
+        confirm(
+            "¿Querés desmarcar todos los ejercicios de hoy?"
+        );
+
+    if (!confirmation) return;
+
+    const date =
+        getTodayKey();
+
+    appData.sessions[date] = {};
+
+    saveData();
+
+    renderTodayRoutine();
+
+}
+
+
+/* =====================================================
+   HISTORIAL
+===================================================== */
+
+function renderHistory() {
+
+    const container =
+        document.getElementById(
+            "historyList"
+        );
+
+    if (
+        appData.history.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                📭 Todavía no hay
+                entrenamientos guardados.
+
+                <br><br>
+
+                Completá una rutina al 100%
+                para agregarla.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML = "";
+
+    const sorted =
+        [...appData.history]
+        .sort(
+            (a,b) =>
+                b.date.localeCompare(a.date)
+        );
+
+    sorted.forEach(item => {
+
+        let emoji = "💪";
+
+        if (item.routine === "PIERNAS")
+            emoji = "🦵";
+
+        if (item.routine === "EMPUJE")
+            emoji = "🔥";
+
+        if (item.routine === "TRACCIÓN")
+            emoji = "💜";
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "history-item";
+
+        div.innerHTML = `
+
+            <div>
+
+                <div class="history-date">
+
+                    ${emoji}
+                    ${capitalize(
+                        formatDate(item.date)
+                    )}
+
+                </div>
+
+                <div class="history-routine">
+
+                    ${item.routine}
+
+                </div>
+
+            </div>
+
+            <div class="history-percent">
+
+                ${item.progress}%
+
+            </div>
+
+        `;
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   PR
+===================================================== */
+
+function renderPRs() {
+
+    const container =
+        document.getElementById(
+            "prList"
+        );
+
+    const allExercises = [];
+
+    Object.values(routines)
+        .forEach(routine => {
+
+            routine.exercises.forEach(
+                exercise => {
+
+                    if (
+                        !allExercises.some(
+                            x =>
+                                x.id === exercise.id
+                        )
+                    ) {
+
+                        allExercises.push(
+                            exercise
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
+    const withPR =
+        allExercises.filter(
+            exercise =>
+                appData.prs[exercise.id]
+        );
+
+    if (withPR.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                🏆 Todavía no tenés PR registrados.
+
+                <br><br>
+
+                Cargá un peso durante tu entrenamiento
+                para empezar a registrar tus marcas.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML = "";
+
+    withPR.forEach(exercise => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "pr-item";
+
+        const last =
+            getLastWeight(exercise.id);
+
+        div.innerHTML = `
+
+            <div class="pr-name">
+                ${exercise.name}
+            </div>
+
+            <div class="pr-value">
+                🏆 ${appData.prs[exercise.id]} kg
+            </div>
+
+            <div class="pr-last">
+                🔄 Último peso: ${last} kg
+            </div>
+
+        `;
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   CALENDARIO
+===================================================== */
+
+function renderCalendar() {
+
+    const calendar =
+        document.getElementById("calendar");
+
+    const title =
+        document.getElementById("calendarTitle");
+
+    const now =
+        new Date();
+
+    const year =
+        now.getFullYear();
+
+    const month =
+        now.getMonth();
+
+    title.textContent =
+        now.toLocaleDateString(
+            "es-AR",
+            {
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    calendar.innerHTML = "";
+
+    const names =
+        ["L","M","X","J","V","S","D"];
+
+    names.forEach(name => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "calendar-name";
+
+        div.textContent =
+            name;
+
+        calendar.appendChild(div);
+
+    });
+
+    const firstDay =
+        new Date(year, month, 1).getDay();
+
+    const offset =
+        firstDay === 0
+        ? 6
+        : firstDay - 1;
+
+    for (
+        let i = 0;
+        i < offset;
+        i++
+    ) {
+
+        const empty =
+            document.createElement("div");
+
+        empty.className =
+            "calendar-day empty";
+
+        calendar.appendChild(empty);
+
+    }
+
+    const days =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+    for (
+        let day = 1;
+        day <= days;
+        day++
+    ) {
+
+        const key =
+            year +
+            "-" +
+            String(month + 1).padStart(2,"0") +
+            "-" +
+            String(day).padStart(2,"0");
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "calendar-day";
+
+        div.textContent =
+            day;
+
+        if (
+            appData.history.some(
+                item =>
+                    item.date === key
+            )
+        ) {
+
+            div.classList.add("trained");
+
+        }
+
+        if (
+            key === getTodayKey()
+        ) {
+
+            div.classList.add("today");
+
+        }
+
+        calendar.appendChild(div);
+
+    }
+
+}
+
+
+/* =====================================================
+   RACHA — SOLO DÍAS PROGRAMADOS
+===================================================== */
+
+function isTrainingDay(date) {
+
+    const day =
+        date.getDay();
+
+    return day >= 1 && day <= 6;
+
+}
+
+
+function getDateKey(date) {
+
+    return (
+        date.getFullYear() +
+        "-" +
+        String(date.getMonth() + 1).padStart(2,"0") +
+        "-" +
+        String(date.getDate()).padStart(2,"0")
+    );
+
+}
+
+
+function calculateStreak() {
+
+    const completedDates =
+        new Set(
+            appData.history.map(
+                item =>
+                    item.date
+            )
+        );
+
+    let date =
+        new Date();
+
+    let streak = 0;
+
+    /* Si hoy es domingo, empezamos
+       desde el sábado */
+
+    if (
+        date.getDay() === 0
+    ) {
+
+        date.setDate(
+            date.getDate() - 1
+        );
+
+    }
+
+    while (true) {
+
+        if (
+            isTrainingDay(date)
+        ) {
+
+            const key =
+                getDateKey(date);
+
+            if (
+                completedDates.has(key)
+            ) {
+
+                streak++;
+
+            } else {
+
+                break;
+
+            }
+
+        }
+
+        date.setDate(
+            date.getDate() - 1
+        );
+
+    }
+
+    return streak;
+
+}
+
+
+/* =====================================================
+   ESTADÍSTICAS
+===================================================== */
+
+function updateStats() {
+
+    const total =
+        appData.history.length;
+
+    const streak =
+        calculateStreak();
+
+    let average = 0;
+
+    if (total > 0) {
+
+        const sum =
+            appData.history.reduce(
+                (total, item) =>
+                    total +
+                    Number(item.progress),
+                0
+            );
+
+        average =
+            Math.round(
+                sum / total
+            );
+
+    }
+
+    document.getElementById(
+        "streakNumber"
+    ).textContent = streak;
+
+    document.getElementById(
+        "workoutNumber"
+    ).textContent = total;
+
+    document.getElementById(
+        "statsWorkouts"
+    ).textContent = total;
+
+    document.getElementById(
+        "statsStreak"
+    ).textContent = streak;
+
+    document.getElementById(
+        "statsAverage"
+    ).textContent =
+        average + "%";
+
+    document.getElementById(
+        "statsText"
+    ).innerHTML = `
+
+        Llevás
+        <strong>${total}</strong>
+        entrenamiento${total === 1 ? "" : "s"}
+        registrado${total === 1 ? "" : "s"}.
+
+        <br><br>
+
+        🔥 Tu racha actual es de
+        <strong>${streak}</strong>
+        día${streak === 1 ? "" : "s"}
+        de entrenamiento.
+
+        <br><br>
+
+        📈 Tu promedio de cumplimiento es
+        <strong>${average}%</strong>.
+
+    `;
+
+    renderPRs();
+
+}
+
+
+/* =====================================================
+   CAMBIAR SECCIÓN
+===================================================== */
+
+function showSection(section) {
+
+    document.getElementById(
+        "todaySection"
+    ).style.display =
+        section === "today"
+        ? "block"
+        : "none";
+
+    document.getElementById(
+        "historySection"
+    ).style.display =
+        section === "history"
+        ? "block"
+        : "none";
+
+    document.getElementById(
+        "calendarSection"
+    ).style.display =
+        section === "calendar"
+        ? "block"
+        : "none";
+
+    document.getElementById(
+        "statsSection"
+    ).style.display =
+        section === "stats"
+        ? "block"
+        : "none";
+
+    document.getElementById(
+        "btnHoy"
+    ).classList.toggle(
+        "active",
+        section === "today"
+    );
+
+    document.getElementById(
+        "btnHistorial"
+    ).classList.toggle(
+        "active",
+        section === "history"
+    );
+
+    document.getElementById(
+        "btnCalendario"
+    ).classList.toggle(
+        "active",
+        section === "calendar"
+    );
+
+    document.getElementById(
+        "btnProgreso"
+    ).classList.toggle(
+        "active",
+        section === "stats"
+    );
+
+    if (section === "history") {
+
+        renderHistory();
+
+    }
+
+    if (section === "calendar") {
+
+        renderCalendar();
+
+    }
+
+    if (section === "stats") {
+
+        updateStats();
+
+    }
+
+}
+
+
+/* =====================================================
+   CAPITALIZAR
+===================================================== */
+
+function capitalize(text) {
+
+    if (!text) return "";
+
+    return (
+        text.charAt(0).toUpperCase() +
+        text.slice(1)
+    );
+
+}
+
+
+/* =====================================================
+   INICIAR APP
+===================================================== */
+
+loadData();
+
+updateDate();
+
+renderTodayRoutine();
+
+updateProgress();
+
+updateStats();
+
+loadTimerState();
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", () => {
+
+        navigator.serviceWorker.register(
+            "./sw.js"
+        );
+
+    });
+
+}    
+
+</script>
+
+</body>
+</html>
