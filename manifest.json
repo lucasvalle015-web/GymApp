@@ -1,6 +1,6 @@
 {
-    "name": "GYM",
-    "short_name": "GYM",
+    "name": "GymApp",
+    "short_name": "GymApp",
     "start_url": "./",
     "display": "standalone",
     "background_color": "#171022",
