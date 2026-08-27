@@ -1,6 +1,6 @@
 {
-    "name": "GymApp",
-    "short_name": "GymApp",
+    "name": "GYM",
+    "short_name": "GYM",
     "start_url": "./",
     "display": "standalone",
     "background_color": "#171022",
@@ -8,9 +8,9 @@
     "orientation": "portrait",
     "icons": [
         {
-            "src": "icon.png.png",
+            "src": "icon.png.jpg",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/jpeg"
         }
     ]
 }
