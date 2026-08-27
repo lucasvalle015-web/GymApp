@@ -1,0 +1,3326 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               viewport-fit=cover">
+
+<meta name="theme-color"
+      content="#171022">
+
+<title>Mi Rutina de Gimnasio</title>
+
+<link rel="icon"
+      type="image/jpeg"
+      href="icon.png.jpg">
+
+<link rel="apple-touch-icon"
+      href="icon.png.jpg">
+
+<meta name="apple-mobile-web-app-capable"
+      content="yes">
+
+<meta name="apple-mobile-web-app-title"
+      content="GYM">
+
+<link rel="manifest"
+      href="manifest.json">
+
+
+<style>
+
+/* =====================================================
+   GENERAL
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #171022;
+
+    color: #f4f0fa;
+
+    min-height: 100vh;
+
+    padding-bottom: 40px;
+}
+
+button,
+input,
+select {
+
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #24163a,
+            #38215a
+        );
+
+    padding: 28px 18px 24px;
+
+    text-align: center;
+
+    border-bottom:
+        2px solid #6946a0;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,0.25);
+}
+
+header h1 {
+
+    margin: 0;
+
+    font-size: 28px;
+}
+
+header p {
+
+    margin: 8px 0 0;
+
+    color: #c8bdd8;
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   CONTENEDOR
+===================================================== */
+
+.container {
+
+    width: 100%;
+
+    max-width: 800px;
+
+    margin: auto;
+
+    padding: 15px;
+}
+
+
+/* =====================================================
+   NAVEGACIÓN
+===================================================== */
+
+.nav {
+
+    display: flex;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    padding:
+        4px 0 16px;
+
+    scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+
+    display: none;
+}
+
+.nav button {
+
+    flex-shrink: 0;
+
+    border:
+        1px solid #493664;
+
+    background: #21182d;
+
+    color: #cfc5dc;
+
+    padding:
+        11px 15px;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.nav button.active {
+
+    background: #8d5dcc;
+
+    color: white;
+
+    border-color: #a97be0;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   TARJETA HOY
+===================================================== */
+
+.today-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #24183a,
+            #2c1c47
+        );
+
+    border:
+        1px solid #6946a0;
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    margin-bottom: 16px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,0.25);
+}
+
+.today-small {
+
+    color: #b9a9ca;
+
+    font-size: 14px;
+
+    margin-bottom: 6px;
+}
+
+.today-title {
+
+    font-size: 29px;
+
+    font-weight: bold;
+
+    margin-bottom: 6px;
+}
+
+.today-subtitle {
+
+    color: #c9bdd5;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   PROGRESO DEL DÍA
+===================================================== */
+
+.progress-card {
+
+    background: #21182d;
+
+    border:
+        1px solid #493664;
+
+    border-radius: 16px;
+
+    padding: 17px;
+
+    margin-bottom: 16px;
+}
+
+.progress-top {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+.progress-label {
+
+    color: #c9bdd5;
+
+    font-size: 14px;
+}
+
+.progress-percent {
+
+    font-size: 22px;
+
+    font-weight: bold;
+}
+
+.progress-bar {
+
+    width: 100%;
+
+    height: 12px;
+
+    background: #352841;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.progress-fill {
+
+    height: 100%;
+
+    width: 0%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7b4bb2,
+            #b179e4
+        );
+
+    border-radius: 20px;
+
+    transition:
+        width 0.3s ease;
+}
+
+
+/* =====================================================
+   TEMPORIZADOR
+===================================================== */
+
+.timer-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #21182d,
+            #2c1b40
+        );
+
+    border:
+        1px solid #654487;
+
+    border-radius: 17px;
+
+    padding: 20px;
+
+    margin-bottom: 16px;
+
+    text-align: center;
+}
+
+.timer-title {
+
+    font-size: 15px;
+
+    color: #bbaecc;
+
+    margin-bottom: 5px;
+}
+
+.timer-display {
+
+    font-size: 48px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    margin: 5px 0 13px;
+}
+
+.timer-button {
+
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b59c7,
+            #a875df
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    padding:
+        13px 28px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    min-width: 150px;
+
+    cursor: pointer;
+}
+
+.timer-button:active {
+
+    transform: scale(0.97);
+}
+
+.timer-finished {
+
+    color: #82df92;
+}
+
+
+/* =====================================================
+   RUTINA
+===================================================== */
+
+.routine-card {
+
+    background: #21182d;
+
+    border:
+        1px solid #493664;
+
+    border-radius: 17px;
+
+    overflow: hidden;
+
+    margin-bottom: 16px;
+}
+
+.routine-header {
+
+    padding: 19px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2b1b44,
+            #392352
+        );
+
+    border-bottom:
+        1px solid #51366c;
+}
+
+.routine-header h2 {
+
+    margin: 0;
+
+    font-size: 23px;
+}
+
+.routine-header p {
+
+    margin: 7px 0 0;
+
+    color: #c7bad4;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   EXERCICIOS
+===================================================== */
+
+.exercise {
+
+    padding: 16px;
+
+    border-bottom:
+        1px solid #362844;
+}
+
+.exercise:last-child {
+
+    border-bottom: none;
+}
+
+.exercise.completed {
+
+    background:
+        rgba(
+            99,
+            184,
+            116,
+            0.09
+        );
+}
+
+.exercise-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    cursor: pointer;
+}
+
+.check {
+
+    width: 29px;
+
+    height: 29px;
+
+    flex-shrink: 0;
+
+    border:
+        2px solid #67547a;
+
+    border-radius: 9px;
+
+    background: #18121f;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+.exercise.completed .check {
+
+    background: #62c778;
+
+    border-color: #62c778;
+
+    color: #101812;
+}
+
+.exercise-name {
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+.exercise.completed .exercise-name {
+
+    color: #8f9b92;
+
+    text-decoration:
+        line-through;
+}
+
+.exercise-info {
+
+    margin-left: 42px;
+
+    margin-top: 5px;
+
+    color: #aaa0b5;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   REGISTRO DE SERIES
+===================================================== */
+
+.weight-area {
+
+    margin-left: 42px;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    background: #1a1322;
+
+    border:
+        1px solid #3d2c4d;
+
+    border-radius: 12px;
+}
+
+.weight-label {
+
+    font-size: 13px;
+
+    color: #a99bb3;
+
+    margin-bottom: 9px;
+}
+
+.series-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin-bottom: 10px;
+}
+
+.series-row {
+
+    display: grid;
+
+    grid-template-columns:
+        35px 1fr 1fr 25px;
+
+    gap: 6px;
+
+    align-items: center;
+}
+
+.series-number {
+
+    color: #9889a4;
+
+    font-size: 12px;
+
+    text-align: center;
+}
+
+.series-input {
+
+    width: 100%;
+
+    padding: 9px 6px;
+
+    border-radius: 8px;
+
+    border:
+        1px solid #5b4370;
+
+    background: #24192e;
+
+    color: white;
+
+    font-size: 14px;
+
+    text-align: center;
+
+    outline: none;
+}
+
+.series-input:focus {
+
+    border-color: #a875df;
+}
+
+.series-remove {
+
+    border: none;
+
+    background: transparent;
+
+    color: #8c7c98;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.add-series-button {
+
+    width: 100%;
+
+    border:
+        1px dashed #5b4370;
+
+    background: #21182d;
+
+    color: #bda9ca;
+
+    padding: 9px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+}
+
+.last-weight {
+
+    margin-top: 9px;
+
+    color: #91839c;
+
+    font-size: 12px;
+}
+
+.pr-badge {
+
+    margin-top: 8px;
+
+    color: #d2a2ff;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   AGREGAR EJERCICIO
+===================================================== */
+
+.add-exercise-button {
+
+    width: calc(100% - 30px);
+
+    margin:
+        15px;
+
+    padding: 13px;
+
+    border:
+        1px dashed #76539b;
+
+    border-radius: 11px;
+
+    background: #21182d;
+
+    color: #cfaaf0;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.add-exercise-button:active {
+
+    transform: scale(0.98);
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    z-index: 1000;
+
+    inset: 0;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.72
+        );
+
+    padding: 20px;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.modal.show {
+
+    display: flex;
+}
+
+.modal-content {
+
+    width: 100%;
+
+    max-width: 420px;
+
+    background: #21182d;
+
+    border:
+        1px solid #6946a0;
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0,0,0,0.45);
+}
+
+.modal-content h2 {
+
+    margin:
+        0 0 16px;
+
+    font-size: 21px;
+}
+
+.modal-label {
+
+    display: block;
+
+    color: #bcaec8;
+
+    font-size: 13px;
+
+    margin:
+        12px 0 6px;
+}
+
+.modal-input {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    border:
+        1px solid #5b4370;
+
+    background: #18121f;
+
+    color: white;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+.modal-input:focus {
+
+    border-color: #a875df;
+}
+
+.modal-buttons {
+
+    display: flex;
+
+    gap: 9px;
+
+    margin-top: 18px;
+}
+
+.modal-buttons button {
+
+    flex: 1;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.modal-cancel {
+
+    border:
+        1px solid #4d3a60;
+
+    background: #21182d;
+
+    color: #d5c9df;
+}
+
+.modal-save {
+
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b59c7,
+            #a875df
+        );
+
+    color: white;
+}
+
+
+/* =====================================================
+   BOTONES
+===================================================== */
+
+.buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+.main-button,
+.secondary-button {
+
+    flex: 1;
+
+    padding: 14px 10px;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.main-button {
+
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b59c7,
+            #a875df
+        );
+
+    color: white;
+}
+
+.secondary-button {
+
+    border:
+        1px solid #4d3a60;
+
+    background: #21182d;
+
+    color: #d5c9df;
+}
+
+
+/* =====================================================
+   ESTADÍSTICAS
+===================================================== */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 9px;
+
+    margin-bottom: 16px;
+}
+
+.stat {
+
+    background: #21182d;
+
+    border:
+        1px solid #493664;
+
+    border-radius: 14px;
+
+    padding: 15px 6px;
+
+    text-align: center;
+}
+
+.stat-number {
+
+    font-size: 24px;
+
+    font-weight: bold;
+}
+
+.stat-label {
+
+    color: #93869e;
+
+    font-size: 11px;
+
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   HISTORIAL
+===================================================== */
+
+.history-card,
+.pr-card {
+
+    background: #21182d;
+
+    border:
+        1px solid #493664;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    margin-bottom: 16px;
+}
+
+.history-header {
+
+    padding: 18px;
+
+    background: #2a1b41;
+}
+
+.history-header h2 {
+
+    margin: 0;
+
+    font-size: 21px;
+}
+
+.history-item {
+
+    padding: 15px;
+
+    border-top:
+        1px solid #362844;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+}
+
+.history-date {
+
+    font-weight: bold;
+}
+
+.history-routine {
+
+    color: #9d91a8;
+
+    font-size: 13px;
+
+    margin-top: 4px;
+}
+
+.history-percent {
+
+    background: #39244e;
+
+    color: #c79bf0;
+
+    padding:
+        7px 10px;
+
+    border-radius: 9px;
+
+    font-weight: bold;
+}
+
+.empty {
+
+    padding: 30px 15px;
+
+    text-align: center;
+
+    color: #81758b;
+}
+
+
+/* =====================================================
+   PR
+===================================================== */
+
+.pr-columns {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+
+    padding: 10px;
+}
+
+.pr-column {
+
+    background: #1a1322;
+
+    border:
+        1px solid #3d2c4d;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    min-width: 0;
+}
+
+.pr-column-title {
+
+    padding: 11px 5px;
+
+    text-align: center;
+
+    background: #2a1b41;
+
+    color: #d4b8ee;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.pr-item {
+
+    padding: 11px 7px;
+
+    border-top:
+        1px solid #362844;
+}
+
+.pr-name {
+
+    font-weight: bold;
+
+    font-size: 13px;
+
+    line-height: 1.25;
+}
+
+.pr-value {
+
+    color: #d2a2ff;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    margin-top: 5px;
+}
+
+.pr-last {
+
+    color: #91839c;
+
+    font-size: 10px;
+
+    margin-top: 4px;
+}
+
+
+/* =====================================================
+   GRÁFICO
+===================================================== */
+
+.chart-card {
+
+    background: #21182d;
+
+    border:
+        1px solid #493664;
+
+    border-radius: 16px;
+
+    padding: 17px;
+
+    margin-bottom: 16px;
+}
+
+.chart-title {
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    margin-bottom: 13px;
+}
+
+.chart-selector {
+
+    width: 100%;
+
+    padding: 11px;
+
+    border-radius: 10px;
+
+    border:
+        1px solid #5b4370;
+
+    background: #18121f;
+
+    color: white;
+
+    font-size: 14px;
+
+    outline: none;
+
+    margin-bottom: 14px;
+}
+
+.chart-container {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 280px;
+
+    background: #1a1322;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+#progressChart {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+}
+
+.chart-empty {
+
+    padding: 35px 15px;
+
+    text-align: center;
+
+    color: #81758b;
+
+    line-height: 1.5;
+}
+
+.chart-info {
+
+    margin-top: 12px;
+
+    color: #95889f;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   CALENDARIO
+===================================================== */
+
+.calendar-card {
+
+    background: #21182d;
+
+    border:
+        1px solid #493664;
+
+    border-radius: 16px;
+
+    padding: 17px;
+}
+
+.calendar-title {
+
+    text-align: center;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+.calendar {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    gap: 5px;
+}
+
+.calendar-name {
+
+    text-align: center;
+
+    color: #82768c;
+
+    font-size: 11px;
+
+    padding-bottom: 5px;
+}
+
+.calendar-day {
+
+    min-height: 40px;
+
+    border-radius: 8px;
+
+    background: #1a1322;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 13px;
+}
+
+.calendar-day.trained {
+
+    background: #8b59c7;
+
+    color: white;
+
+    font-weight: bold;
+}
+
+.calendar-day.today {
+
+    border:
+        2px solid #d2a9f7;
+}
+
+.calendar-day.empty {
+
+    background: transparent;
+}
+
+
+/* =====================================================
+   DESCANSO
+===================================================== */
+
+.rest-card {
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    background: #21182d;
+
+    border:
+        1px solid #493664;
+
+    border-radius: 18px;
+}
+
+.rest-emoji {
+
+    font-size: 55px;
+
+    margin-bottom: 15px;
+}
+
+.rest-card h2 {
+
+    margin:
+        0 0 10px;
+
+    font-size: 25px;
+}
+
+.rest-card p {
+
+    color: #a99db3;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   COMPLETADO
+===================================================== */
+
+.complete-message {
+
+    display: none;
+
+    text-align: center;
+
+    padding: 17px;
+
+    margin-bottom: 16px;
+
+    background:
+        rgba(
+            98,
+            199,
+            120,
+            0.12
+        );
+
+    border:
+        1px solid #4f9e60;
+
+    border-radius: 14px;
+
+    color: #8be39a;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+
+    text-align: center;
+
+    color: #665b6e;
+
+    font-size: 12px;
+
+    margin-top: 30px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .pr-columns {
+
+        gap: 5px;
+
+        padding: 7px;
+    }
+
+    .pr-column-title {
+
+        font-size: 10px;
+    }
+
+    .pr-name {
+
+        font-size: 11px;
+    }
+
+    .pr-value {
+
+        font-size: 14px;
+    }
+
+    .pr-last {
+
+        font-size: 9px;
+    }
+
+}
+
+@media (max-width: 420px) {
+
+    header h1 {
+
+        font-size: 25px;
+    }
+
+    .today-title {
+
+        font-size: 26px;
+    }
+
+    .exercise-name {
+
+        font-size: 16px;
+    }
+
+    .series-row {
+
+        grid-template-columns:
+            28px 1fr 1fr 22px;
+    }
+
+    .main-button,
+    .secondary-button {
+
+        font-size: 13px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>
+        💪 Mi rutina de gimnasio
+    </h1>
+
+    <p id="currentDate"></p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =====================================================
+     NAVEGACIÓN
+===================================================== -->
+
+<div class="nav">
+
+    <button
+        id="btnHoy"
+        class="active"
+        onclick="showSection('today')">
+
+        🏋️ Hoy
+
+    </button>
+
+    <button
+        id="btnHistorial"
+        onclick="showSection('history')">
+
+        📜 Historial
+
+    </button>
+
+    <button
+        id="btnCalendario"
+        onclick="showSection('calendar')">
+
+        📅 Calendario
+
+    </button>
+
+    <button
+        id="btnProgreso"
+        onclick="showSection('stats')">
+
+        📊 Progreso
+
+    </button>
+
+    <button
+        id="btnPR"
+        onclick="showSection('prs')">
+
+        🏆 Mis PR
+
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     HOY
+===================================================== -->
+
+<div id="todaySection">
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="streakNumber">
+                0
+            </div>
+
+            <div class="stat-label">
+                🔥 Racha
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="workoutNumber">
+                0
+            </div>
+
+            <div class="stat-label">
+                🏆 Entrenos
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="progressSmall">
+                0%
+            </div>
+
+            <div class="stat-label">
+                📈 Hoy
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="today-card">
+
+        <div class="today-small">
+            HOY
+        </div>
+
+        <div
+            class="today-title"
+            id="todayTitle">
+
+            🏋️ Cargando...
+
+        </div>
+
+        <div
+            class="today-subtitle"
+            id="todaySubtitle">
+
+            Cargando rutina...
+
+        </div>
+
+    </div>
+
+
+    <div class="progress-card">
+
+        <div class="progress-top">
+
+            <div class="progress-label">
+                Progreso de hoy
+            </div>
+
+            <div
+                class="progress-percent"
+                id="progressPercent">
+
+                0%
+
+            </div>
+
+        </div>
+
+        <div class="progress-bar">
+
+            <div
+                class="progress-fill"
+                id="progressFill">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TEMPORIZADOR -->
+
+    <div class="timer-card">
+
+        <div class="timer-title">
+            ⏱️ DESCANSO
+        </div>
+
+        <div
+            class="timer-display"
+            id="timerDisplay">
+
+            1:30
+
+        </div>
+
+        <button
+            class="timer-button"
+            id="timerButton"
+            onclick="timerAction()">
+
+            ▶️ INICIAR
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="completeMessage"
+        class="complete-message">
+
+        🎉 ¡Rutina completada al 100%!
+
+        <br>
+
+        Excelente trabajo 💪
+
+    </div>
+
+
+    <div id="routineContainer"></div>
+
+
+    <div
+        id="buttonsContainer"
+        class="buttons">
+
+        <button
+            class="main-button"
+            onclick="finishWorkout()">
+
+            🏁 Guardar entrenamiento
+
+        </button>
+
+        <button
+            class="secondary-button"
+            onclick="resetToday()">
+
+            🔄 Reiniciar
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HISTORIAL
+===================================================== -->
+
+<div
+    id="historySection"
+    style="display:none;">
+
+    <div class="history-card">
+
+        <div class="history-header">
+
+            <h2>
+                📜 Historial de entrenamientos
+            </h2>
+
+        </div>
+
+        <div id="historyList"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CALENDARIO
+===================================================== -->
+
+<div
+    id="calendarSection"
+    style="display:none;">
+
+    <div class="calendar-card">
+
+        <div
+            class="calendar-title"
+            id="calendarTitle">
+        </div>
+
+        <div
+            class="calendar"
+            id="calendar">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     PROGRESO
+===================================================== -->
+
+<div
+    id="statsSection"
+    style="display:none;">
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="statsWorkouts">
+                0
+            </div>
+
+            <div class="stat-label">
+                🏆 Entrenamientos
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="statsStreak">
+                0
+            </div>
+
+            <div class="stat-label">
+                🔥 Racha
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="statsAverage">
+                0%
+            </div>
+
+            <div class="stat-label">
+                📈 Promedio
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- GRÁFICO -->
+
+    <div class="chart-card">
+
+        <div class="chart-title">
+
+            📈 Evolución de fuerza
+
+        </div>
+
+        <select
+            id="exerciseSelector"
+            class="chart-selector"
+            onchange="drawProgressChart()">
+
+        </select>
+
+
+        <div
+            class="chart-container"
+            id="chartContainer">
+
+            <canvas
+                id="progressChart">
+            </canvas>
+
+        </div>
+
+
+        <div
+            class="chart-info"
+            id="chartInfo">
+
+        </div>
+
+    </div>
+
+
+    <div class="today-card">
+
+        <div class="today-title">
+
+            📊 Tu progreso
+
+        </div>
+
+        <div
+            class="today-subtitle"
+            id="statsText"
+            style="margin-top:10px;">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MIS PR
+===================================================== -->
+
+<div
+    id="prsSection"
+    style="display:none;">
+
+    <div class="pr-card">
+
+        <div class="history-header">
+
+            <h2>
+                🏆 Mis PR
+            </h2>
+
+        </div>
+
+
+        <div class="pr-columns">
+
+
+            <div class="pr-column">
+
+                <div class="pr-column-title">
+
+                    🔥 EMPUJE
+
+                </div>
+
+                <div id="prEmpuje"></div>
+
+            </div>
+
+
+            <div class="pr-column">
+
+                <div class="pr-column-title">
+
+                    🦵 PIERNAS
+
+                </div>
+
+                <div id="prPiernas"></div>
+
+            </div>
+
+
+            <div class="pr-column">
+
+                <div class="pr-column-title">
+
+                    💜 TRACCIÓN
+
+                </div>
+
+                <div id="prTraccion"></div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="footer">
+
+    💜 Entrená fuerte · mantené la técnica · progresá de a poco
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     MODAL AGREGAR EJERCICIO
+===================================================== -->
+
+<div
+    class="modal"
+    id="exerciseModal">
+
+    <div class="modal-content">
+
+        <h2>
+            ➕ Agregar ejercicio
+        </h2>
+
+        <label
+            class="modal-label"
+            for="newExerciseName">
+
+            Nombre del ejercicio
+
+        </label>
+
+        <input
+            id="newExerciseName"
+            class="modal-input"
+            type="text"
+            placeholder="Ej: Aperturas con mancuernas">
+
+        <label
+            class="modal-label"
+            for="newExerciseReps">
+
+            Repeticiones programadas
+
+        </label>
+
+        <input
+            id="newExerciseReps"
+            class="modal-input"
+            type="text"
+            placeholder="Ej: 3×10 reps">
+
+        <div class="modal-buttons">
+
+            <button
+                class="modal-cancel"
+                onclick="closeExerciseModal()">
+
+                Cancelar
+
+            </button>
+
+            <button
+                class="modal-save"
+                onclick="saveNewExercise()">
+
+                Agregar
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   RUTINAS ORIGINALES
+===================================================== */
+
+const routines = {
+
+    TRACCION: {
+
+        name: "TRACCIÓN",
+
+        emoji: "💜",
+
+        days: [1,4],
+
+        exercises: [
+
+            {
+                id: "dominadas",
+                name: "Dominadas",
+                reps: "4×10/8/6/4 reps",
+                note: "Con banda elástica"
+            },
+
+            {
+                id: "australian",
+                name: "Australian",
+                reps: "3×6 reps"
+            },
+
+            {
+                id: "remo-maquina",
+                name: "Remo en máquina",
+                reps: "3×10 reps"
+            },
+
+            {
+                id: "dorsales-polea",
+                name: "Dorsales polea alta",
+                reps: "4×12 reps"
+            },
+
+            {
+                id: "curl-martillo",
+                name: "Curl martillo con mancuernas",
+                reps: "3×10 reps"
+            },
+
+            {
+                id: "curl-predicador",
+                name: "Curl predicador de bíceps barra W",
+                reps: "4×10 reps"
+            },
+
+            {
+                id: "curl-inverso",
+                name: "Curl inverso",
+                reps: "3×8/10 reps"
+            }
+
+        ]
+
+    },
+
+
+    PIERNAS: {
+
+        name: "PIERNAS",
+
+        emoji: "🦵",
+
+        days: [2,5],
+
+        exercises: [
+
+            {
+                id: "sentadillas",
+                name: "Sentadillas",
+                reps: "4×10 reps"
+            },
+
+            {
+                id: "prensa",
+                name: "Prensa",
+                reps: "4×12 reps"
+            },
+
+            {
+                id: "extension-cuadriceps",
+                name: "Extensión de cuádriceps",
+                reps: "3×10 reps"
+            },
+
+            {
+                id: "buenos-dias",
+                name: "Buenos días",
+                reps: "3×12/15 reps"
+            },
+
+            {
+                id: "peso-muerto-mancuerna",
+                name: "Peso muerto con mancuerna",
+                reps: "3×10 reps"
+            },
+
+            {
+                id: "hip-thrust",
+                name: "Hip Thrust",
+                reps: "4×12 reps"
+            },
+
+            {
+                id: "estocadas",
+                name: "Estocadas con mancuerna",
+                reps: "3×10 reps"
+            },
+
+            {
+                id: "gemelos",
+                name: "Elevaciones de gemelos",
+                reps: "4×12 reps"
+            }
+
+        ]
+
+    },
+
+
+    EMPUJE: {
+
+        name: "EMPUJE",
+
+        emoji: "🔥",
+
+        days: [3,6],
+
+        exercises: [
+
+            {
+                id: "fondos",
+                name: "Fondos",
+                reps: "3×10/8/6 reps"
+            },
+
+            {
+                id: "press-plano",
+                name: "Press plano",
+                reps: "4×10 reps"
+            },
+
+            {
+                id: "press-inclinado",
+                name: "Press inclinado",
+                reps: "4×12 reps"
+            },
+
+            {
+                id: "press-militar",
+                name: "Press militar sentado",
+                reps: "3×6/8 reps"
+            },
+
+            {
+                id: "press-frances",
+                name: "Press francés",
+                reps: "3×10/12 reps"
+            },
+
+            {
+                id: "extension-triceps",
+                name: "Extensión de tríceps polea alta",
+                reps: "3×8/10 reps"
+            },
+
+            {
+                id: "vuelos-laterales",
+                name: "Vuelos laterales",
+                reps: "3×10 reps"
+            }
+
+        ]
+
+    }
+
+};
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+const STORAGE_KEY =
+    "rutinaGymCompleta_v3";
+
+const TIMER_STORAGE_KEY =
+    "gymTimerState";
+
+
+let appData = {
+
+    sessions: {},
+
+    history: [],
+
+    weights: {},
+
+    prs: {},
+
+    customExercises: {},
+
+    workoutRecords: {}
+
+};
+
+
+/* =====================================================
+   CARGAR DATOS
+===================================================== */
+
+function loadData() {
+
+    const saved =
+        localStorage.getItem(
+            STORAGE_KEY
+        );
+
+    if (!saved) {
+
+        return;
+
+    }
+
+    try {
+
+        const parsed =
+            JSON.parse(saved);
+
+
+        appData.sessions =
+            parsed.sessions || {};
+
+
+        appData.history =
+            Array.isArray(parsed.history)
+            ? parsed.history
+            : [];
+
+
+        appData.weights =
+            parsed.weights || {};
+
+
+        appData.prs =
+            parsed.prs || {};
+
+
+        appData.customExercises =
+            parsed.customExercises || {};
+
+
+        appData.workoutRecords =
+            parsed.workoutRecords || {};
+
+
+    } catch (error) {
+
+        console.log(
+            "No se pudieron cargar los datos."
+        );
+
+    }
+
+}
+
+
+function saveData() {
+
+    localStorage.setItem(
+
+        STORAGE_KEY,
+
+        JSON.stringify(appData)
+
+    );
+
+}
+
+
+/* =====================================================
+   CONSTRUIR EJERCICIOS
+===================================================== */
+
+function getAllExercises() {
+
+    const result = [];
+
+    Object.keys(routines)
+        .forEach(category => {
+
+            routines[category]
+                .exercises
+                .forEach(exercise => {
+
+                    result.push({
+
+                        ...exercise,
+
+                        category
+
+                    });
+
+                });
+
+
+            const custom =
+                appData.customExercises[category]
+                || [];
+
+
+            custom.forEach(exercise => {
+
+                result.push({
+
+                    ...exercise,
+
+                    category
+
+                });
+
+            });
+
+        });
+
+
+    return result;
+
+}
+
+
+/* =====================================================
+   BUSCAR EJERCICIO
+===================================================== */
+
+function findExercise(id) {
+
+    return getAllExercises()
+        .find(
+            exercise =>
+                exercise.id === id
+        );
+
+}
+
+
+/* =====================================================
+   FECHAS
+===================================================== */
+
+function getTodayKey() {
+
+    const now =
+        new Date();
+
+    return (
+
+        now.getFullYear() +
+        "-" +
+        String(
+            now.getMonth() + 1
+        ).padStart(2,"0") +
+        "-" +
+        String(
+            now.getDate()
+        ).padStart(2,"0")
+
+    );
+
+}
+
+
+function getDayNumber() {
+
+    return new Date().getDay();
+
+}
+
+
+function getDateKey(date) {
+
+    return (
+
+        date.getFullYear() +
+        "-" +
+        String(
+            date.getMonth() + 1
+        ).padStart(2,"0") +
+        "-" +
+        String(
+            date.getDate()
+        ).padStart(2,"0")
+
+    );
+
+}
+
+
+function formatDate(dateKey) {
+
+    const parts =
+        dateKey.split("-");
+
+
+    const date =
+        new Date(
+
+            Number(parts[0]),
+
+            Number(parts[1]) - 1,
+
+            Number(parts[2])
+
+        );
+
+
+    return date.toLocaleDateString(
+
+        "es-AR",
+
+        {
+
+            weekday: "long",
+
+            day: "numeric",
+
+            month: "long",
+
+            year: "numeric"
+
+        }
+
+    );
+
+}
+
+
+function updateDate() {
+
+    const text =
+        new Date().toLocaleDateString(
+
+            "es-AR",
+
+            {
+
+                weekday: "long",
+
+                day: "numeric",
+
+                month: "long",
+
+                year: "numeric"
+
+            }
+
+        );
+
+
+    document.getElementById(
+        "currentDate"
+    ).textContent =
+
+        text.charAt(0).toUpperCase() +
+        text.slice(1);
+
+}
+
+
+/* =====================================================
+   RUTINA DEL DÍA
+===================================================== */
+
+function getTodayRoutine() {
+
+    const day =
+        getDayNumber();
+
+
+    for (
+        const key in routines
+    ) {
+
+        if (
+            routines[key]
+                .days
+                .includes(day)
+        ) {
+
+            return routines[key];
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   ESTADO DEL DÍA
+===================================================== */
+
+function getTodayState() {
+
+    const key =
+        getTodayKey();
+
+
+    if (
+        !appData.sessions[key]
+    ) {
+
+        appData.sessions[key] = {};
+
+    }
+
+
+    return appData.sessions[key];
+
+}
+
+
+/* =====================================================
+   REGISTROS DE SERIES
+===================================================== */
+
+function getTodayRecord(id) {
+
+    const date =
+        getTodayKey();
+
+
+    if (
+        !appData.workoutRecords[date]
+    ) {
+
+        appData.workoutRecords[date] = {};
+
+    }
+
+
+    if (
+        !appData.workoutRecords[date][id]
+    ) {
+
+        appData.workoutRecords[date][id] = {
+
+            series: []
+
+        };
+
+    }
+
+
+    return appData.workoutRecords[date][id];
+
+}
+
+
+/* =====================================================
+   ÚLTIMO REGISTRO
+===================================================== */
+
+function getLastRecord(id) {
+
+    const dates =
+        Object.keys(
+            appData.workoutRecords
+        )
+        .sort()
+        .reverse();
+
+
+    for (
+        const date of dates
+    ) {
+
+        const record =
+            appData.workoutRecords[date]
+            ?. [id];
+
+
+        if (
+            record &&
+            Array.isArray(record.series) &&
+            record.series.length
+        ) {
+
+            return record;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   ÚLTIMO PESO COMPATIBILIDAD
+===================================================== */
+
+function getLastWeight(id) {
+
+    const record =
+        getLastRecord(id);
+
+
+    if (record) {
+
+        const valid =
+            record.series
+                .filter(
+                    s =>
+                        Number(s.weight) > 0
+                );
+
+
+        if (valid.length) {
+
+            return Number(
+                valid[valid.length - 1]
+                    .weight
+            );
+
+        }
+
+    }
+
+
+    const dates =
+        Object.keys(
+            appData.weights
+        )
+        .sort()
+        .reverse();
+
+
+    for (
+        const date of dates
+    ) {
+
+        if (
+            appData.weights[date] &&
+            appData.weights[date][id]
+            !== undefined
+        ) {
+
+            return Number(
+                appData.weights[date][id]
+            );
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   PARSEAR SERIES PROGRAMADAS
+===================================================== */
+
+function getDefaultSeriesCount(reps) {
+
+    const match =
+        String(reps)
+            .match(/^(\d+)\s*[×x]/i);
+
+
+    if (match) {
+
+        return Math.min(
+            Number(match[1]),
+            8
+        );
+
+    }
+
+
+    return 3;
+
+}
+
+
+/* =====================================================
+   RENDER RUTINA
+===================================================== */
+
+function renderTodayRoutine() {
+
+    const routine =
+        getTodayRoutine();
+
+
+    const container =
+        document.getElementById(
+            "routineContainer"
+        );
+
+
+    const buttons =
+        document.getElementById(
+            "buttonsContainer"
+        );
+
+
+    if (!routine) {
+
+        document.getElementById(
+            "todayTitle"
+        ).textContent =
+            "😴 DESCANSO";
+
+
+        document.getElementById(
+            "todaySubtitle"
+        ).textContent =
+            "Hoy no hay entrenamiento programado.";
+
+
+        container.innerHTML = `
+
+            <div class="rest-card">
+
+                <div class="rest-emoji">
+                    😴
+                </div>
+
+                <h2>
+                    Día de descanso
+                </h2>
+
+                <p>
+                    Hoy no tenés una rutina programada.
+                    Aprovechá para descansar y recuperarte.
+                </p>
+
+            </div>
+
+        `;
+
+
+        buttons.style.display =
+            "none";
+
+
+        document.getElementById(
+            "progressPercent"
+        ).textContent =
+            "—";
+
+
+        document.getElementById(
+            "progressFill"
+        ).style.width =
+            "0%";
+
+
+        document.getElementById(
+            "progressSmall"
+        ).textContent =
+            "—";
+
+
+        return;
+
+    }
+
+
+    buttons.style.display =
+        "flex";
+
+
+    document.getElementById(
+        "todayTitle"
+    ).textContent =
+
+        routine.emoji +
+        " " +
+        routine.name;
+
+
+    document.getElementById(
+        "todaySubtitle"
+    ).textContent =
+
+        routine.exercises.length +
+        " ejercicios programados para hoy";
+
+
+    let html = `
+
+        <div class="routine-card">
+
+            <div class="routine-header">
+
+                <h2>
+                    ${routine.emoji}
+                    ${routine.name}
+                </h2>
+
+                <p>
+                    Registrá el peso y las repeticiones
+                    de cada serie.
+                </p>
+
+            </div>
+
+    `;
+
+
+    routine.exercises.forEach(
+        (exercise,index) => {
+
+            html += renderExercise(
+                exercise,
+                index
+            );
+
+        }
+    );
+
+
+    const custom =
+        appData.customExercises[
+            Object.keys(routines)
+                .find(
+                    key =>
+                        routines[key] === routine
+                )
+        ] || [];
+
+
+    custom.forEach(
+        (exercise,index) => {
+
+            html += renderExercise(
+
+                exercise,
+
+                routine.exercises.length +
+                index
+
+            );
+
+        }
+    );
+
+
+    html += `
+
+            <button
+                class="add-exercise-button"
+                onclick="openExerciseModal()">
+
+                ➕ Agregar ejercicio
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    container.innerHTML =
+        html;
+
+
+    updateProgress();
+
+}
+
+
+/* =====================================================
+   RENDER EJERCICIO
+===================================================== */
+
+function renderExercise(
+    exercise,
+    index
+) {
+
+    const state =
+        getTodayState();
+
+
+    const current =
+        !!state[exercise.id];
+
+
+    const record =
+        getTodayRecord(
+            exercise.id
+        );
+
+
+    const last =
+        getLastRecord(
+            exercise.id
+        );
+
+
+    let series =
+        record.series || [];
+
+
+    if (!series.length) {
+
+        const oldWeight =
+            getTodayWeightLegacy(
+                exercise.id
+            );
+
+
+        const count =
+            getDefaultSeriesCount(
+                exercise.reps
+            );
+
+
+        for (
+            let i = 0;
+            i < count;
+            i++
+        ) {
+
+            series.push({
+
+                weight:
+                    oldWeight || "",
+
+                reps: ""
+
+            });
+
+        }
+
+    }
+
+
+    const pr =
+        appData.prs[
+            exercise.id
+        ] || 0;
+
+
+    let seriesHTML = "";
+
+
+    series.forEach(
+        (serie,serieIndex) => {
+
+            seriesHTML += `
+
+                <div class="series-row">
+
+                    <div class="series-number">
+                        S${serieIndex + 1}
+                    </div>
+
+                    <input
+                        class="series-input"
+                        type="number"
+                        inputmode="decimal"
+                        step="0.5"
+                        min="0"
+                        value="${serie.weight ?? ""}"
+                        placeholder="kg"
+                        onclick="event.stopPropagation()"
+                        onchange="saveSeries(
+                            '${exercise.id}',
+                            ${serieIndex},
+                            'weight',
+                            this.value
+                        )">
+
+                    <input
+                        class="series-input"
+                        type="number"
+                        inputmode="numeric"
+                        step="1"
+                        min="0"
+                        value="${serie.reps ?? ""}"
+                        placeholder="reps"
+                        onclick="event.stopPropagation()"
+                        onchange="saveSeries(
+                            '${exercise.id}',
+                            ${serieIndex},
+                            'reps',
+                            this.value
+                        )">
+
+                    <button
+                        class="series-remove"
+                        onclick="removeSeries(
+                            '${exercise.id}',
+                            ${serieIndex},
+                            event
+                        )">
+
+                        ×
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    let lastText =
+        "🔄 Todavía no hay un registro anterior";
+
+
+    if (last) {
+
+        const valid =
+            last.series
+                .filter(
+                    s =>
+                        s.weight !== "" &&
+                        s.reps !== ""
+                );
+
+
+        if (valid.length) {
+
+            lastText =
+                "🔄 Último: " +
+
+                valid
+                    .map(
+                        s =>
+                            `${s.weight} kg × ${s.reps}`
+                    )
+                    .join(" · ");
+
+        }
+
+    }
+
+
+    return `
+
+        <div
+            class="exercise ${current ? "completed" : ""}"
+            data-id="${exercise.id}">
+
+            <div
+                class="exercise-row"
+                onclick="toggleExercise('${exercise.id}')">
+
+                <div class="check">
+
+                    ${current ? "✓" : ""}
+
+                </div>
+
+                <div class="exercise-name">
+
+                    ${index + 1}.
+                    ${exercise.name}
+
+                </div>
+
+            </div>
+
+
+            <div class="exercise-info">
+
+                ${exercise.reps}
+
+            </div>
+
+
+            ${
+                exercise.note
+                ?
+                `
+
+                <div
+                    class="exercise-info"
+                    style="color:#8e7da0;">
+
+                    💡 ${exercise.note}
+
+                </div>
+
+                `
+                :
+                ""
+            }
+
+
+            <div class="weight-area">
+
+                <div class="weight-label">
+
+                    🏋️ Peso · 🔢 Repeticiones
+
+                </div>
+
+
+                <div class="series-list">
+
+                    ${seriesHTML}
+
+                </div>
+
+
+                <button
+                    class="add-series-button"
+                    onclick="addSeries(
+                        '${exercise.id}',
+                        event
+                    )">
+
+                    ➕ Agregar serie
+
+                </button>
+
+
+                <div class="last-weight">
+
+                    ${lastText}
+
+                </div>
+
+
+                ${
+                    pr > 0
+                    ?
+                    `
+
+                    <div class="pr-badge">
+
+                        🏆 PR:
+                        ${pr} kg
+
+                    </div>
+
+                    `
+                    :
+                    ""
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   COMPATIBILIDAD CON PESOS ANTIGUOS
+===================================================== */
+
+function getTodayWeightLegacy(id) {
+
+    const date =
+        getTodayKey();
+
+
+    if (
+        appData.weights[date] &&
+        appData.weights[date][id]
+        !== undefined
+    ) {
+
+        return appData.weights[date][id];
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =====================================================
+   GUARDAR SERIE
+===================================================== */
+
+function saveSeries(
+    id,
+    index,
+    field,
+    value
+) {
+
+    const date =
+        getTodayKey();
+
+
+    if (
+        !appData.workoutRecords[date]
+    ) {
+
+        appData.workoutRecords[date] = {};
+
+    }
+
+
+    if (
+        !appData.workoutRecords[date][id]
+    ) {
+
+        appData.workoutRecords[date][id] = {
+
+            series: []
+
+        };
+
+    }
+
+
+    const record =
+        appData.workoutRecords[date][id];
+
+
+    while (
+        record.series.length <= index
+    ) {
+
+        record.series.push({
+
+            weight: "",
+
+            reps: ""
+
+        });
+
+    }
+
+
+    if (field === "weight") {
+
+        record.series[index].weight =
+            value === ""
+            ? ""
+            : Number(value);
+
+    }
+
+
+    if (field === "reps") {
+
+        record.series[index].reps =
+            value === ""
+            ? ""
+            : Number(value);
+
+    }
+
+
+    /*
+       Compatibilidad:
+       si cargamos un peso,
+       también mantenemos el viejo
+       sistema de weights.
+    */
+
+    if (
+        field ===
